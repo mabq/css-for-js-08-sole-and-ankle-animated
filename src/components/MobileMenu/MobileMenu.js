@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { WEIGHTS } from '../../constants';
 
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
@@ -36,6 +36,15 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const overlayAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -45,6 +54,17 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+
+  animation: ${overlayAnimation} 400ms ease;
+`;
+
+const contentAnimation = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +74,10 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${contentAnimation} 400ms cubic-bezier(.4,0,.18,1.05);
+  }
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -69,6 +93,17 @@ const Nav = styled.nav`
   gap: 16px;
 `;
 
+const navLinkAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+`;
+
 const NavLink = styled.a`
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
@@ -78,18 +113,48 @@ const NavLink = styled.a`
 
   &:first-of-type {
     color: var(--color-secondary);
+    animation: ${navLinkAnimation} 300ms 100ms both;
+  }
+  &:nth-of-type(2) {
+    animation: ${navLinkAnimation} 300ms 125ms both;
+  }
+  &:nth-of-type(3) {
+    animation: ${navLinkAnimation} 300ms 150ms both;
+  }
+  &:nth-of-type(4) {
+    animation: ${navLinkAnimation} 300ms 175ms both;
+  }
+  &:nth-of-type(5) {
+    animation: ${navLinkAnimation} 300ms 200ms both;
+  }
+  &:nth-of-type(6) {
+    animation: ${navLinkAnimation} 300ms 225ms both;
   }
 `;
 
 const Filler = styled.div`
   flex: 1;
 `;
+
+const footerAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
 const Footer = styled.footer`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
   justify-content: flex-end;
+
+  animation: ${footerAnimation} 400ms 275ms ease both;
 `;
 
 const SubLink = styled.a`
